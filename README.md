@@ -4,6 +4,10 @@
 **Domain:** Tourism  
 **Skills:** Data Cleaning · EDA · Visualization · SQL-style Merges · Machine Learning (Regression, Classification, Recommendation) · Streamlit
 
+
+## 🚀 Live Demo
+👉 [Click here to view the dashboard](https://tourism-analytics-027.streamlit.app/)
+
 ---
 
 ## 📁 Project Structure
