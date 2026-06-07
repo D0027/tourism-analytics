@@ -1115,7 +1115,7 @@ elif page == "💡  Business Insights":
          "Visit mode classification enables precise customer segmentation — family travellers, business visitors, and couples each require tailored communication."),
     ]
     for icon, title, badge, text in insights:
-        with st.expander(f"{icon}  {title}", expanded=False):
+        with st.expander(f"{title}", expanded=False):
             st.markdown(f'<span class="badge {badge}">{title}</span><br><br>', unsafe_allow_html=True)
             st.write(text)
 
