@@ -267,17 +267,77 @@ button[data-baseweb="tab"][aria-selected="true"] {
     border-color: var(--accent-cyan) !important;
 }
 
-/* ── Expander ───────────────────────────────────────── */
+/* ── Expander — FIXED ───────────────────────────────── */
 [data-testid="stExpander"] {
     background: var(--bg-card) !important;
     border: 1px solid var(--border) !important;
     border-radius: var(--radius-md) !important;
     margin-bottom: 10px !important;
+    overflow: hidden !important;
 }
-[data-testid="stExpander"] summary {
-    font-weight: 600 !important;
-    color: var(--text-primary) !important;
+
+/* The clickable summary row */
+[data-testid="stExpander"] details summary {
+    display: flex !important;
+    align-items: center !important;
     padding: 14px 18px !important;
+    cursor: pointer !important;
+    list-style: none !important;
+    position: relative !important;
+    background: transparent !important;
+    transition: background 0.2s ease !important;
+    gap: 0 !important;
+}
+[data-testid="stExpander"] details summary:hover {
+    background: rgba(255,255,255,0.03) !important;
+}
+
+/* Hide the default browser marker */
+[data-testid="stExpander"] details summary::-webkit-details-marker { display: none !important; }
+[data-testid="stExpander"] details summary::marker { display: none !important; }
+
+/* The title text inside the summary */
+[data-testid="stExpander"] details summary p,
+[data-testid="stExpander"] details summary span {
+    font-weight: 600 !important;
+    font-size: 0.92rem !important;
+    color: var(--text-primary) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1.4 !important;
+    flex: 1 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+/* Streamlit's SVG chevron arrow — push it to the right */
+[data-testid="stExpander"] details summary svg {
+    flex-shrink: 0 !important;
+    margin-left: auto !important;
+    color: var(--text-muted) !important;
+    transition: transform 0.2s ease !important;
+    width: 18px !important;
+    height: 18px !important;
+}
+
+/* Rotate chevron when open */
+[data-testid="stExpander"] details[open] summary svg {
+    transform: rotate(180deg) !important;
+}
+
+/* Open state border accent */
+[data-testid="stExpander"] details[open] {
+    border-color: rgba(0,212,255,0.18) !important;
+}
+[data-testid="stExpander"] details[open] summary {
+    border-bottom: 1px solid var(--border) !important;
+}
+
+/* Content area */
+[data-testid="stExpander"] details > div {
+    padding: 16px 18px 18px !important;
+    background: transparent !important;
 }
 
 /* ── Info / Warning / Success boxes ────────────────── */
@@ -1101,38 +1161,38 @@ elif page == "💡  Business Insights":
 
     section("🔑 Key Insights from Analysis")
     insights = [
-        ("🔑", "Rating Drivers",          "badge-cyan",
+        ("🔑", "Rating Drivers",             "badge-cyan",
          "Attraction type, user continent, and season are the strongest predictors of user ratings. Platforms should tailor content and placement based on these factors."),
-        ("📅", "Seasonal Patterns",        "badge-violet",
+        ("📅", "Seasonal Patterns",           "badge-violet",
          "Families visit predominantly in Summer and Spring. Business travellers show far less seasonal variation, enabling targeted off-peak promotions."),
-        ("📈", "Long-Tail Attraction Demand","badge-green",
+        ("📈", "Long-Tail Attraction Demand", "badge-green",
          "A small set of attractions receives a disproportionately large share of visits. Operators should invest in surfacing hidden-gem attractions to distribute demand."),
-        ("🤝", "Personalisation Uplift",   "badge-amber",
+        ("🤝", "Personalisation Uplift",      "badge-amber",
          "SVD-based collaborative filtering achieves low RMSE even with sparse user-item data, suggesting meaningful personalisation gains from deploying CF in production."),
-        ("🆕", "Cold-Start Solution",      "badge-cyan",
+        ("🆕", "Cold-Start Solution",         "badge-cyan",
          "Content-based cosine similarity on attraction type & city handles new users with no history, ensuring every visitor receives relevant suggestions from day one."),
-        ("📊", "Customer Segmentation",    "badge-violet",
+        ("📊", "Customer Segmentation",       "badge-violet",
          "Visit mode classification enables precise customer segmentation — family travellers, business visitors, and couples each require tailored communication."),
     ]
     for icon, title, badge, text in insights:
-        with st.expander(f"{title}", expanded=False):
-            st.markdown(f'<span class="badge {badge}">{title}</span><br><br>', unsafe_allow_html=True)
-            st.write(text)
+        with st.expander(f"{icon}  {title}"):
+            st.markdown(f'<span class="badge {badge}">{title}</span>', unsafe_allow_html=True)
+            st.markdown(f'<p style="margin-top:12px; font-size:0.9rem; color:#94a3b8; line-height:1.7;">{text}</p>', unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
     section("🚀 Actionable Recommendations")
     recs = [
-        ("💼", "Targeted Promotions",       "#00d4ff",
+        ("💼", "Targeted Promotions",        "#00d4ff",
          "Use the classification model to predict visit mode, then push family or couple packages proactively."),
-        ("⚠️", "Dynamic Rating Alerts",     "#f59e0b",
+        ("⚠️", "Dynamic Rating Alerts",      "#f59e0b",
          "Flag attractions predicted to receive low ratings so operators can intervene early."),
-        ("🏠", "Personalised Homepage",      "#7c3aed",
+        ("🏠", "Personalised Homepage",       "#7c3aed",
          "Surface CF recommendations at login; fall back to CB recommendations for new/anonymous users."),
-        ("🌦️","Seasonal Capacity Planning", "#10b981",
+        ("🌦️", "Seasonal Capacity Planning", "#10b981",
          "Use Summer/Spring demand forecasts to help attraction organisers staff up efficiently."),
-        ("📡", "Region-Based Marketing",     "#f472b6",
+        ("📡", "Region-Based Marketing",      "#f472b6",
          "Certain continents show strong affinity for specific attraction types — leverage for geo-targeted ads."),
-        ("🔄", "Feedback Loop",              "#3b82f6",
+        ("🔄", "Feedback Loop",               "#3b82f6",
          "Collect user clicks on recommendations to retrain models periodically and improve accuracy over time."),
     ]
     col1, col2 = st.columns(2)
@@ -1152,9 +1212,9 @@ elif page == "💡  Business Insights":
          "Suggest attractions based on past visits, preferences, and demographic data."),
         ("📊", "Tourism Analytics",             "#7c3aed",
          "Insights into popular attractions & regions so businesses can adjust offerings."),
-        ("🧩", "Customer Segmentation",          "#10b981",
+        ("🧩", "Customer Segmentation",         "#10b981",
          "Classify users by travel behaviour, enabling targeted promotions."),
-        ("💎", "Customer Retention",             "#f59e0b",
+        ("💎", "Customer Retention",            "#f59e0b",
          "Personalised recommendations boost loyalty — users return when they discover great places."),
     ]
     for i, (icon, title, color, desc) in enumerate(use_cases):
