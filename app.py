@@ -83,7 +83,7 @@ st.markdown("""
     min-height: 100vh;
 }
 
-[data-testid="stHeader"] { background: transparent !important; }
+[data-testid="stHeader"] { display: none !important; }
 
 /* ── Sidebar ────────────────────────────────────────── */
 [data-testid="stSidebar"] {
