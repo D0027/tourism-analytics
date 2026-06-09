@@ -83,7 +83,7 @@ st.markdown("""
     min-height: 100vh;
 }
 
-[data-testid="stHeader"] { background: transparent !important; }
+[data-testid="stHeader"] { background: transparent !important; display: none !important; } [data-testid="stSidebarCollapsedControl"] { display: none !important; } [data-testid="stToolbar"] { display: none !important; } .stAppDeployButton { display: none !important; }
 
 /* ── Sidebar ────────────────────────────────────────── */
 [data-testid="stSidebar"] {
