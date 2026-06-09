@@ -475,6 +475,7 @@ PALETTE = ["#00d4ff","#7c3aed","#f472b6","#f59e0b","#10b981","#3b82f6","#ef4444"
 
 def apply_theme(fig):
     fig.update_layout(**CHART_THEME)
+    fig.update_layout(title=None)
     return fig
 
 
