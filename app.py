@@ -74,6 +74,14 @@ st.markdown("""
 /* ── Base Reset ─────────────────────────────────────── */
 * { font-family: 'Outfit', sans-serif !important; box-sizing: border-box; }
 
+/* Restore icon fonts so Streamlit's built-in icons render as glyphs, not text */
+[class*="material-symbols"],
+[class*="material-icons"],
+span[data-testid="stIconMaterial"] {
+    font-family: 'Material Symbols Rounded', 'Material Symbols Outlined', 'Material Icons' !important;
+}
+
+
 /* ── App Background ─────────────────────────────────── */
 [data-testid="stAppViewContainer"] {
     background: var(--bg-primary) !important;
