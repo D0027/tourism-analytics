@@ -437,9 +437,7 @@ code, pre {
 }
 
 /* ── Hide Streamlit deploy button icon ──────────────── */
-[data-testid="stSidebarCollapsedControl"] {
-    display: none !important;
-}   
+[data-testid="stToolbarActions"] { display: none !important; }
 
 
 /* ── Scrollbar ──────────────────────────────────────── */
@@ -483,7 +481,10 @@ def apply_theme(fig):
     fig.update_layout(**CHART_THEME)
     fig.update_layout(title_text="")
     return fig
-
+def hex_to_rgba(hex_color, alpha=0.07):
+    hex_color = hex_color.lstrip("#")
+    r, g, b = int(hex_color[0:2], 16), int(hex_color[2:4], 16), int(hex_color[4:6], 16)
+    return f"rgba({r},{g},{b},{alpha})"
 
 # ─────────────────────────────────────────────────────────────────
 # LOAD ARTIFACTS — auto-retrain on Cloud if pkl missing
@@ -1127,7 +1128,7 @@ elif page == "📈  Model Leaderboard":
             fill="toself",
             name=row["Model"],
             line=dict(color=PALETTE[i % len(PALETTE)], width=1.5),
-            fillcolor=PALETTE[i % len(PALETTE)].replace("#", "rgba(") + ",0.07)" if "#" in PALETTE[i % len(PALETTE)] else PALETTE[i % len(PALETTE)],
+            fillcolor=hex_to_rgba(PALETTE[i % len(PALETTE)], 0.07),
         ))
     fig2.update_layout(
         polar=dict(
